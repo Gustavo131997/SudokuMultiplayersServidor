@@ -144,9 +144,9 @@ class Sudoku():
 
     def RetornaPosiblesCuadrante(self, fila, columna):
         disponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        cuadrante = RetornaCuadrante(fila, columna)
-        minifilas = RetornaMinifilas(self.tablero, cuadrante)
-        minicolumnas = RetornaMinicolumnas(self.tablero, cuadrante)
+        cuadrante = self.RetornaCuadrante(fila, columna)
+        minifilas = self.RetornaMinifilas(cuadrante)
+        minicolumnas = self.RetornaMinicolumnas(cuadrante)
         valorinicialenpuntoestudio = self.tablero[fila][columna]
         self.tablero[fila][columna] = 'estudio'
         for i in minifilas:
@@ -183,12 +183,12 @@ class Sudoku():
 
 
     def RetornaTotalPosibles(self, fila, columna):
-        lista1 = RetornaPosiblesVertical(self.tablero, fila, columna)
-        lista2 = RetornaPosiblesHorizontal(self.tablero, fila, columna)
-        lista3 = RetornaPosiblesCuadrante(self.tablero, fila, columna)
-        lista1 = RetornaInvertidos(lista1)
-        lista2 = RetornaInvertidos(lista2)
-        lista3 = RetornaInvertidos(lista3)
+        lista1 = self.RetornaPosiblesVertical(fila, columna)
+        lista2 = self.RetornaPosiblesHorizontal(fila, columna)
+        lista3 = self.RetornaPosiblesCuadrante(fila, columna)
+        lista1 = self.RetornaInvertidos(lista1)
+        lista2 = self.RetornaInvertidos(lista2)
+        lista3 = self.RetornaInvertidos(lista3)
         listatotal = lista1 + lista2 + lista3
         listaimposibles = []
         if 1 in listatotal:
@@ -209,7 +209,7 @@ class Sudoku():
             listaimposibles.append(8)
         if 9 in listatotal:
             listaimposibles.append(9)
-        listaposibles = RetornaInvertidos(listaimposibles)
+        listaposibles = self.RetornaInvertidos(listaimposibles)
         return listaposibles
 
 
@@ -235,7 +235,7 @@ class Sudoku():
         for i in range(filas):
             for j in range(columnas):
                 if self.tablero[i][j] == 0:
-                    posibles = RetornaTotalPosibles(self.tablero, i, j)
+                    posibles = self.RetornaTotalPosibles(i, j)
                     if len(posibles) == 1:
                         self.tablero[i][j] = posibles[0]
                         actuado = 1
@@ -253,9 +253,9 @@ class Sudoku():
         for i in range(filas):
             for j in range(columnas):
                 if self.tablero[i][j] == 0:  # casilla vacia
-                    posibles = RetornaTotalPosibles(self.tablero, i, j)
+                    posibles = self.RetornaTotalPosibles(i, j)
                     if len(posibles) == 2:
-                        self.tablero[i][j] = RetornaUnoDeLaLista(posibles)
+                        self.tablero[i][j] = self.RetornaUnoDeLaLista(posibles)
                         return 1
         return 0
 
@@ -266,9 +266,9 @@ class Sudoku():
         for i in range(filas):
             for j in range(columnas):
                 if self.tablero[i][j] == 0:  # casilla vacia
-                    posibles = RetornaTotalPosibles(self.tablero, i, j)
+                    posibles = self.RetornaTotalPosibles(i, j)
                     if len(posibles) == 3:
-                        self.tablero[i][j] = RetornaUnoDeLaLista(posibles)
+                        self.tablero[i][j] = self.RetornaUnoDeLaLista(posibles)
                         return 1
         return 0
 
@@ -279,9 +279,9 @@ class Sudoku():
         for i in range(filas):
             for j in range(columnas):
                 if self.tablero[i][j] == 0:  # casilla vacia
-                    posibles = RetornaTotalPosibles(self.tablero, i, j)
+                    posibles = self.RetornaTotalPosibles(i, j)
                     if len(posibles) == 4:
-                        self.tablero[i][j] = RetornaUnoDeLaLista(posibles)
+                        self.tablero[i][j] = self.RetornaUnoDeLaLista(posibles)
                         return 1
         return 0
 
@@ -292,9 +292,9 @@ class Sudoku():
         for i in range(filas):
             for j in range(columnas):
                 if self.tablero[i][j] == 0:  # casilla vacia
-                    posibles = RetornaTotalPosibles(self.tablero, i, j)
+                    posibles = self.RetornaTotalPosibles(i, j)
                     if len(posibles) == 5:
-                        self.tablero[i][j] = RetornaUnoDeLaLista(posibles)
+                        self.tablero[i][j] = self.RetornaUnoDeLaLista(posibles)
                         return 1
         return 0
 
@@ -305,9 +305,9 @@ class Sudoku():
         for i in range(filas):
             for j in range(columnas):
                 if self.tablero[i][j] == 0:  # casilla vacia
-                    posibles = RetornaTotalPosibles(self.tablero, i, j)
+                    posibles = self.RetornaTotalPosibles(i, j)
                     if len(posibles) == 6:
-                        self.tablero[i][j] = RetornaUnoDeLaLista(posibles)
+                        self.tablero[i][j] = self.RetornaUnoDeLaLista(posibles)
                         return 1
         return 0
 
@@ -318,9 +318,9 @@ class Sudoku():
         for i in range(filas):
             for j in range(columnas):
                 if self.tablero[i][j] == 0:  # casilla vacia
-                    posibles = RetornaTotalPosibles(self.tablero, i, j)
+                    posibles = self.RetornaTotalPosibles(i, j)
                     if len(posibles) == 7:
-                        self.tablero[i][j] = RetornaUnoDeLaLista(posibles)
+                        self.tablero[i][j] = self.RetornaUnoDeLaLista(posibles)
                         return 1
         return 0
 
@@ -331,25 +331,25 @@ class Sudoku():
         contador = 0
         while self.CuentaCeros() != 0 and contador <= 200:
             contador += 1
-            while RellenaInmediatos(self.tablero) == 1:
+            while self.RellenaInmediatos() == 1:
                 print "rellenada inmediatos"
                 # VisualizaTabla(self.tablero)
-            if RellenaUnaCasillaCon2Posibles(self.tablero):
+            if self.RellenaUnaCasillaCon2Posibles():
                 print "rellenada 2 posibles"
                 # VisualizaTabla(self.tablero)
-            elif RellenaUnaCasillaCon3Posibles(self.tablero):
+            elif self.RellenaUnaCasillaCon3Posibles():
                 print "rellenada 3 posibles"
                 # VisualizaTabla(self.tablero)
-            elif RellenaUnaCasillaCon4Posibles(self.tablero):
+            elif self.RellenaUnaCasillaCon4Posibles():
                 print "rellenada 4 posibles"
                 # VisualizaTabla(self.tablero)
-            elif RellenaUnaCasillaCon5Posibles(self.tablero):
+            elif self.RellenaUnaCasillaCon5Posibles():
                 print "rellenada 5 posibles"
-                # VisualizaTabla(self.tablero)
-            elif RellenaUnaCasillaCon6Posibles(self.tablero):
+                # VisualizaTabla(self.tablero).
+            elif self.RellenaUnaCasillaCon6Posibles():
                 print "rellenada 6 posibles"
                 # VisualizaTabla(self.tablero)
-            elif RellenaUnaCasillaCon7Posibles(self.tablero):
+            elif self.RellenaUnaCasillaCon7Posibles():
                 print "rellenada 7 posibles"
                 # VisualizaTabla(self.tablero)
 
@@ -370,23 +370,23 @@ class Sudoku():
             fila = random.randint(0, filas - 1)
             columna = random.randint(0, columnas - 1)
             if self.tablero[fila][columna] != 0:
-                if len(RetornaTotalPosibles(self.tablero, fila, columna)) == 1:
+                if len(self.RetornaTotalPosibles(fila, columna)) == 1:
                     self.tablero[fila][columna] = 0
                     cerosinsertados += 1
                     # VisualizaTabla(self.tablero)
 
 
     def SolucionaSudoku(self):
-        ceros = CuentaCeros()
+        ceros = self.CuentaCeros()
         bajando = 1
         contador = 0
         print "\nEstado inicial de la tablero"
-        VisualizaTabla(self.tablero)
+        self.VisualizaTabla()
         print "\nInicialmente hay", ceros, "ceros."
         while ceros > 0 and bajando == 1:
             self.RellenaInmediatos()
-            if ceros > CuentaCeros():
-                ceros = CuentaCeros()
+            if ceros > self.CuentaCeros():
+                ceros = self.CuentaCeros()
                 bajando = 1
             else:
                 bajando = 0
@@ -449,16 +449,16 @@ class Sudoku():
             sudoku.RellenaCuadrante(9)
             sudoku.RellenaPosibilidades()
             if dificultad == "0":
-                OcultaCeldas("facil")
+                sudoku.OcultaCeldas("facil")
             elif dificultad == "1":
-                OcultaCeldas("medio")
+                sudoku.OcultaCeldas("medio")
             else:
-                OcultaCeldas("dificil")
-            VisualizaTabla()
+                sudoku.OcultaCeldas("dificil")
+            sudoku.VisualizaTabla()
             print"Desea ver la solucion ahora? (S/N):"
             solucion = raw_input()
             if solucion.lower() == 's':
-                SolucionaSudoku()
+                sudoku.SolucionaSudoku()
 
         print"Recuerde que se han cargado las funciones"
         print"y que puede utilizarlas a su antojo\n"
