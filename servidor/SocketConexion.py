@@ -29,7 +29,7 @@ class SocketConexion(threading.Thread):
         # conexion al cliente
         self.sc.bind(address)
         # numero maximo de escuchas que puede aceptar
-        self.sc.listen(5)
+        self.sc.listen(2)
 
     # obtiene un objeto de tipo socket con la conexion establecida
     def esperar_conexion(self):

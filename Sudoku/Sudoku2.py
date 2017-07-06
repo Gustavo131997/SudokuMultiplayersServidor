@@ -61,12 +61,16 @@ class Sudoku():
         filas = len(self.tablero)
         columnas = len(self.tablero[0])
         for i in range(filas):
-            if i == 0 or i == 3 or i == 6: print "- - - - - - - - - - - - -"
+            if i == 0 or i == 3 or i == 6:
+                print "- - - - - - - - - - - - -"
             for j in range(columnas):
-                if j == 0 or j == 3 or j == 6: print "|",
+                if j == 0 or j == 3 or j == 6:
+                    print "|",
                 print self.tablero[i][j]
-                if j == 8: print"|"
-            if i == 8: print "- - - - - - - - - - - - -"
+                if j == 8:
+                    print"|"
+            if i == 8:
+                print "- - - - - - - - - - - - -"
         # print "\n"
 
 
@@ -455,6 +459,8 @@ class Sudoku():
             else:
                 sudoku.OcultaCeldas("dificil")
             sudoku.VisualizaTabla()
+            for i in range(0, 10):
+                print(sudoku.tablero[0][1])
             print"Desea ver la solucion ahora? (S/N):"
             solucion = raw_input()
             if solucion.lower() == 's':

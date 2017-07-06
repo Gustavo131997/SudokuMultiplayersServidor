@@ -1,6 +1,6 @@
 import socket
 import threading
-from Sudoku.Sudoku import *
+from Sudoku.Sudoku2 import *
 
 # Clase que hereda de la clase Thread para poder manejar un hilo para
 # controlar la lectura y escritura sobre el socket.
@@ -76,15 +76,26 @@ class Socket(threading.Thread):
                 else:
                     if trama == "1":
                         sudoku1 = Sudoku()
-                        sudoku1.crearTableroSudoku()
+                        self.escribir("Nivel de dificultat? (facil=0/medio=1/dificil=2):")
+                        dificultad = self.leer()
+                        sudoku1.RellenaCuadrante(1)
+                        sudoku1.RellenaCuadrante(5)
+                        sudoku1.RellenaCuadrante(9)
+                        sudoku1.RellenaPosibilidades()
+                        if dificultad == "0":
+                            sudoku1.OcultaCeldas("facil")
+                        elif dificultad == "1":
+                            sudoku1.OcultaCeldas("medio")
+                        else:
+                            sudoku1.OcultaCeldas("dificil")
+                        sudoku.VisualizaTabla()
                         self.escribir("tablero_0")
-                        for i in range(0,3):
-                            for j in range(0,3):
-                                for k in range(0,3):
-                                    for z in range(0,3):
-                                        self.escribir("macrofila:"+str(i)+"macrocolumna:"+str(j)+"fila:"+str(k)+"columna:"+str(z)+"valor:"+sudoku1.tablero[i][j][k][z][0])
+                        self.escribir("linea_1")
+                        for i in range(0,10):
+                            self.escribir(sudoku1.tablero[0][1])
+
                         sudoku2 = Sudoku()
-                        sudoku2.crearTableroSudoku()
+
                     self.escribir("tablero_0")
                     for i in range(0, 3):
                         for j in range(0, 3):
